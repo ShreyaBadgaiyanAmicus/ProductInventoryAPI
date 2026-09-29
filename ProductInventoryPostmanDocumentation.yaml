@@ -1,0 +1,253 @@
+openapi: 3.0.0
+info:
+  title: ProductInventoryAPI
+  version: 1.0.0
+  description: ''
+servers:
+  - url: '{{localhost}}'
+  - url: https://localhost:7211
+  - url: ''
+paths:
+  /api/products:
+    get:
+      summary: Get All Products
+      responses: {}
+      tags:
+        - Products CRUD
+    post:
+      summary: Create Product
+      responses: {}
+      tags:
+        - Products CRUD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+                categoryId:
+                  type: integer
+            example:
+              name: ''
+              description: HP Laptop
+              price: 55000
+              quantity: 10
+              categoryId: 4
+  /api/products/3:
+    get:
+      summary: Get Product By ID
+      responses: {}
+      tags:
+        - Products CRUD
+    delete:
+      summary: Delete Product
+      responses: {}
+      tags:
+        - Products CRUD
+  /api/products/1:
+    put:
+      summary: Update Product
+      responses: {}
+      tags:
+        - Products CRUD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+                categoryId:
+                  type: integer
+            example:
+              name: Updated laptop
+              description: Updated Dell Laptop
+              price: 60000
+              quantity: 15
+              categoryId: 1
+    delete:
+      summary: Delete Product
+      responses: {}
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+  /api/auth/register:
+    post:
+      summary: Register User
+      responses: {}
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+            example:
+              username: ShreyaBadgaiyan
+              password: Test@123
+              role: User
+  /api/auth/login:
+    post:
+      summary: Login User
+      responses: {}
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+            example:
+              username: shreya
+              password: Test@123
+  /:
+    get:
+      summary: Login Admin
+      responses: {}
+      tags:
+        - Auth
+  /api/auth/refresh:
+    post:
+      summary: Refresh Token
+      responses: {}
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+            example:
+              refreshToken: >-
+                PBAj0ECbsJu/WoX1J+JUXLSuEoumpxlbf7yKFJv7mKgcNkS6M3RxHKRe6HGLyjUmJ5WEo/ql3YbiCcGvVq2oDA==
+  /api/products/:
+    post:
+      summary: Create Product
+      responses: {}
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+                categoryId:
+                  type: integer
+                supplierIds:
+                  type: array
+                  items:
+                    type: integer
+            example:
+              name: Postman Test Laptop
+              description: Desc
+              price: 50000
+              quantity: 5
+              categoryId: 1
+              supplierIds:
+                - 1
+  /api/products/bulk:
+    post:
+      summary: Bulk Create Products
+      responses: {}
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  price:
+                    type: integer
+                  quantity:
+                    type: integer
+                  categoryId:
+                    type: integer
+                  supplierIds:
+                    type: array
+                    items:
+                      type: integer
+            example:
+              - name: Bulk Laptop A
+                description: Bulk test product A
+                price: 50000
+                quantity: 10
+                categoryId: 1
+                supplierIds:
+                  - 1
+              - name: Bulk Laptop B
+                description: Bulk test product B
+                price: 60000
+                quantity: 5
+                categoryId: 1
+                supplierIds:
+                  - 2
+  /api/products/search:
+    get:
+      summary: Search Products
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: laptop
+      responses: {}
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
