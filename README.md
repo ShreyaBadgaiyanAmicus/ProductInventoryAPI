@@ -377,4 +377,5 @@ Create ProductController in Controllers folder
 
 14. Search Products
 	
-![Alt Text](Screenshots/Assignment2/task8_code14.png)
+![Alt Text](Screenshots/Assignment2/task8_code14.png)#   P r o d u c t I n v e n t o r y A P I  
+ 
